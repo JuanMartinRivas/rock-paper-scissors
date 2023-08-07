@@ -19,10 +19,10 @@ function getPlayerChoice() {
     let choiceNum = prompt("Make your choice:\n1.Rock.\n2.Paper.\n3.Scissors.");
 
     while (choiceNum != "1" && choiceNum != "2" && choiceNum != "3") {
-         choiceNum = prompt("Please enter one of the following choices only:\n1.Rock.\n2.Paper.\n3.Scissors.");
-         if(choiceNum == "1" || choiceNum == "2" || choiceNum == "3"){
+        choiceNum = prompt("Please enter one of the following choices only:\n1.Rock.\n2.Paper.\n3.Scissors.");
+        if (choiceNum == "1" || choiceNum == "2" || choiceNum == "3") {
             break;
-         }
+        }
     };
 
     if (choiceNum == "1") {
@@ -56,16 +56,32 @@ function playRound(playerChoice, computerChoice) {
     }
 }
 
-function game (){
-    let pChoice;
-    let cChoice;
+function game() {
+    let playerScore = 0;
+    let computerScore = 0;
 
-    pChoice = getPlayerChoice();
-    cChoice = getComputerChoice();
+    for (let round = 0; round < 5; round++) {
+        let pChoice = getPlayerChoice();
+        let cChoice = getComputerChoice();
+        let result = playRound(pChoice, cChoice);
 
-    return playRound(pChoice, cChoice);
+        if (result.startsWith("You win!")) {
+            playerScore++;
+        } else if (result.startsWith("You loose!")) {
+            computerScore++;
+        }
 
+        console.log(result);
+        console.log(`Round ${round + 1}: Player ${playerScore} - ${computerScore} Computer`);
+    }
 
+    if (playerScore > computerScore) {
+        return "Player wins!";
+    } else if (computerScore > playerScore) {
+        return "Computer wins!";
+    } else {
+        return "It's a tie!";
+    }
 }
 
 console.log(game());
